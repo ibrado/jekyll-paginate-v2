@@ -31,24 +31,6 @@ module Jekyll
         init = (@page - 1) * @per_page
         offset = (init + @per_page - 1) >= posts.size ? posts.size : (init + @per_page - 1)
 
-        # Adjust the first index page url
-        if( first_index_page_url.end_with?('/'))
-          first_index_page_url = first_index_page_url + default_indexpage + default_ext
-          puts "Appending default index+ext: #{first_index_page_url}"
-        elsif !first_index_page_url.include?('.')
-          first_index_page_url = first_index_page_url + default_indexpage
-          puts "Appending default index only: #{first_index_page_url}"
-        end
-
-        # Adjust the paginated pages as well
-        if( paginated_page_url.end_with?('/'))
-          paginated_page_url = paginated_page_url + default_indexpage + default_ext
-          puts "Appending default paginated index+ext: #{paginated_page_url}"
-        elsif !paginated_page_url.include?('.')
-          paginated_page_url = paginated_page_url + default_ext
-          puts "Appending default paginated ext only: #{paginated_page_url}"
-        end
-
         @total_posts = posts.size
         @posts = posts[init..offset]
         @page_path = @page == 1 ? first_index_page_url : Utils.format_page_number(paginated_page_url, cur_page_nr, @total_pages)
