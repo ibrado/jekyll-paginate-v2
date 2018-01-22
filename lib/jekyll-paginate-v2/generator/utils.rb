@@ -135,6 +135,26 @@ module Jekyll
         return url
       end
 
+      # Constructs the plural for a key
+      def self.plural(config_key)
+        config_key.sub(/y$/, 'ies') || "#{config_key}s"
+      end
+
+      # Converts a string to a downcased, stripped array
+      def self.config_array(config, key)
+        [ config[key] ].flatten.compact.uniq.map { |c|
+          c.split(/[,;]\s*/).map { |v|
+            v.to_s.downcase.strip
+          }
+        }.flatten.uniq
+      end
+
+      # Merges singular and plural config values into an array
+      def self.config_values(config, key)
+        singular = config_array(config, key)
+        plural = config_array(config, plural(key))
+        [ singular, plural ].flatten.uniq
+      end
     end
 
   end # module PaginateV2
