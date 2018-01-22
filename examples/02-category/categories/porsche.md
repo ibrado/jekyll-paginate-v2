@@ -1,6 +1,6 @@
 ---
 layout: home
-title: Only Porsche
+title: Porsche
 permalink: /porsches/
 pagination: 
   enabled: true
