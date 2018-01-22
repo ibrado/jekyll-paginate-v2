@@ -66,8 +66,10 @@ module Jekyll
         return nil if posts.nil?
         return nil if source_posts.nil? # If the source is empty then simply don't do anything
         return posts if config.nil?
-        return posts if !config.has_key?(config_key)
-        return posts if config[config_key].nil?
+
+        plural_key = Utils.plural(config_key)
+        return posts if !config.has_key?(config_key) && !config.has_key?(plural_key)
+        return posts if config[config_key].nil? && config[plural_key].nil?
         
         # Get the filter values from the config (this is the cat/tag/locale values that should be filtered on)
         
