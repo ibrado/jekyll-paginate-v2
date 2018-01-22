@@ -140,7 +140,7 @@ module Jekyll
         config_key.sub(/y$/, 'ies') || "#{config_key}s"
       end
 
-      # Converts a string to a downcased, stripped array
+      # Converts a string or array to a downcased, stripped array
       def self.config_array(config, key)
         [ config[key] ].flatten.compact.uniq.map { |c|
           c.split(/[,;]\s*/).map { |v|

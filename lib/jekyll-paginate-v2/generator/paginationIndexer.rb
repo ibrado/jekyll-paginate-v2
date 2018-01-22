@@ -86,7 +86,6 @@ module Jekyll
         # The fully filtered final post list
         return posts
       end #function read_config_value_and_filter_posts
-
     end #class PaginationIndexer
 
   end #module PaginateV2
