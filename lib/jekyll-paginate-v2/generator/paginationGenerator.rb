@@ -20,6 +20,9 @@ module Jekyll
       # Returns nothing.
       def generate(site)
       #begin
+        # Generate the AutoPages first
+        PaginateV2::AutoPages.create_autopages(site)
+
         # Retrieve and merge the pagination configuration from the site yml file
         default_config = Jekyll::Utils.deep_merge_hashes(DEFAULT, site.config['pagination'] || {})
 
@@ -74,7 +77,7 @@ module Jekyll
           if collection_name == "all"
             # the 'all' collection_name is a special case and includes all collections in the site (except posts!!)
             # this is useful when you want to list items across multiple collections
-            for coll_name, coll_data in site.collections
+            site.collections.each do |coll_name, coll_data|
               if( !coll_data.nil? && coll_name != 'posts')
                 coll += coll_data.docs.select { |doc| !doc.data.has_key?('pagination') } # Exclude all pagination pages
               end
