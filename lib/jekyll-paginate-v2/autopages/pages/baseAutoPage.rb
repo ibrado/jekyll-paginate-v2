@@ -41,7 +41,10 @@ module Jekyll
         @dir = permalink_formatted
 
         self.data['layout'] = File.basename(layout_name, File.extname(layout_name))
-        self.data['title'] = get_autopage_title_lambda.call( page_title )
+
+        ap_title = get_autopage_title_lambda.call( page_title )         
+        self.data['title'] = PaginateV2::Generator::Utils.format_page_title(ap_title, site.config['title'] || site.config['name'])
+
         self.data['pagination']  = pagination_layout_config # Store the pagination configuration
 
         # Add the auto page flag in there to be able to detect the page (necessary when figuring out where to load it from)
